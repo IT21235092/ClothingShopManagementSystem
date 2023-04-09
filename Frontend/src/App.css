@@ -1,0 +1,116 @@
+.card{
+    transition: all 0.5s ease;
+    
+    
+}
+.card:hover{
+    cursor: pointer;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+}
+
+/* Form */
+.form{
+    background-image: url('./images/Style2.png');
+
+}
+
+/* Footer */
+.footer{
+    background: rgb(219, 197, 0);
+    background: linear-gradient(90deg, rgb(219, 197, 0) 40%, rgba(219, 197, 0) 100%);
+}
+
+
+.navbar-nav{
+
+    margin-left: 200px;
+    padding: 15px;
+    
+}
+
+.navbar-brand{
+
+    margin-left: 150px;
+}
+
+#dashw{
+
+    padding: 30px;
+    
+}
+
+#navColour{
+
+    background-color: #FECD45;
+   
+}
+#sidebarMenu{
+
+    background-color: #A350A3; 
+    border-radius: 0px 50px 50px 0px;
+    position:absolute;
+    height: 1100px;
+}
+#dashtxt{
+
+    color: antiquewhite;
+}
+
+#dashw .active{
+
+
+    background-color: rgb(255, 255, 255);
+    color: black;
+    height: 50px; width: 183px;
+    border-radius: 50px 0px 0px 50px;
+    
+}
+
+#logo{
+
+    margin-left: 300px;
+}
+
+#search{
+
+    width: 150px;
+    border-radius: 500px;
+}
+
+#card{
+
+    max-width: 18rem;
+}
+
+/* styles for screens smaller than 768px (mobile) */
+@media (max-width: 767px) {
+    .navbar-brand {
+      font-size: 1.5rem;
+    }
+    .navbar-nav {
+      margin-top: 10px;
+    }
+    .nav-item {
+      margin-bottom: 5px;
+    }
+    .dropdown-menu {
+      margin-top: 5px;
+    }
+  }
+  
+  /* styles for screens larger than 768px (desktop) */
+  @media (min-width: 768px) {
+    .navbar-brand {
+      font-size: 2rem;
+    }
+    .navbar-nav {
+      margin-top: 0;
+    }
+    .nav-item {
+      margin-bottom: 0;
+    }
+    .dropdown-menu {
+      margin-top: 0;
+    }
+  }
+  
