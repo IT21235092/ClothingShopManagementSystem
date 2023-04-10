@@ -210,6 +210,66 @@ router.get('/accounts',(req,res) =>{
     });
 });
 
+//get a Emp Details
+
+router.get("/accounts/:id",(req,res) =>{
+
+    let empId = req.params.id;
+
+    collection.findById(empId,(err,post) =>{
+
+        if(err){
+            return res.status(400).json({success:false, err})
+        }
+
+        return res.status(200).json({
+            success:true,
+            post
+        });
+    });
+});
+
+//update Emp Details
+
+router.put('/accounts/update/:id',(req,res)=>{
+
+    
+    
+    collection.findByIdAndUpdate(req.params.id,
+        {
+            $set:req.body
+        },
+        (err,post) =>{
+
+            if(err){
+                return res.status(400).json({error:err});
+            }
+
+            return res.status(200).json({
+                success:"Updated Succesfully",
+                
+            });
+        }
+    );
+});
+
+//delete Emp Details
+
+router.delete('/accounts/delete/:id', (req,res)=>{
+
+    collection.findByIdAndRemove(req.params.id).exec((err,deletedPost) =>{
+
+        if(err) return res.status(400).json({
+
+            message:"Delete unsuccessful", err
+        });
+
+        return res.json({
+            messege:"Delete Successful",deletedPost
+        });
+    });
+});
+
 //save posts
 
 router.post('/emp/save',(req,res)=>{

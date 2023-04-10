@@ -13,6 +13,7 @@ import Dashboard from './pamudu/Dashboard';
 import AddDetails from './pamudu/AddDetails';
 import Employee from './pamudu/Employee';
 import EditEmployee from './pamudu/EditEmployee';
+import EditPeople from './pamudu/EditPeople';
 import Profile from './pamudu/Profile';
 import './App.css';
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/Home" element={<Home />} />
           <Route path="/add" element={<CreatePost />} />
           <Route path="/editemp/:id" element={<EditEmployee />} />
+          <Route path="/editpeople/:id" element={<EditPeople />} />
           <Route path="/edit/:id" element={<EditPost />} />
           <Route path="/post/:id" element={<PostDetails />} />
           <Route path="/addD" element={<AddDetails />} />

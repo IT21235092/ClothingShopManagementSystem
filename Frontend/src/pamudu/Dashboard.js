@@ -14,6 +14,7 @@ export default class Dashboard extends Component {
 
     this.state ={
 
+      
       userData: "",
       userSchema:[],
       admin: false,
@@ -79,6 +80,15 @@ export default class Dashboard extends Component {
       }
   });
 
+  }
+
+  onDelete = (id) =>{
+
+    axios.delete(`http://localhost:8000/accounts/delete/${id}`).then((res) =>{
+      this.retrievePosts();
+    alert("Deleted Successfully");
+    
+    })
   }
 
   render() {
@@ -239,6 +249,13 @@ export default class Dashboard extends Component {
               <td>{userSchema.address}</td>
               <td>{userSchema.telephone}</td>
               <td>{userSchema.userType}</td>
+              <td>
+           <a className="btn btn-warning mt-2 rounded-pill" href={`/editpeople/${userSchema._id}`}>
+            <i className="fas fa-edit"></i>&nbsp;Edit
+           </a> &nbsp;
+                 <a className="btn btn-danger mt-2 rounded-pill" href="#" onClick ={()=>this.onDelete(userSchema._id)}>
+                  <i className="far fa-trash-alt"></i>&nbsp;Delete
+                 </a></td>
              
               <td>
        
