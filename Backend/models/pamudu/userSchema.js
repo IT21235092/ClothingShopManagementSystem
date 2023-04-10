@@ -47,6 +47,8 @@ const userSchema = new mongoose.Schema({
 
         type: String,
     },
+   
+    
 })
 
 const collection = mongoose.model('collection',userSchema);

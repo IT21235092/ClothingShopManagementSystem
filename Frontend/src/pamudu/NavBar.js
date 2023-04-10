@@ -51,7 +51,7 @@ export default class NavBar extends Component {
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-target="#navbarNavDropdown"
+          data-bs-target="#navbarNavDropdown"
           aria-controls="navbarNavDropdown"
           aria-expanded="false"
           aria-label="Toggle navigation"
