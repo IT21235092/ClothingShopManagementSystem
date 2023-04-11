@@ -145,8 +145,9 @@ router.post("/",async(req,res) =>{
     res.json({status: "error",error:"Invalid Password"});
     
 });
-//Registration
-router.post("/register", async (req, res) => {
+
+ //registration
+ router.post("/register", async (req, res) => {
     const { email, password, user, userType,telephone,address,firstname,lastname } = req.body;
   
     const encryptedPassword = await bcrypt.hash(password,10);
@@ -162,6 +163,7 @@ router.post("/register", async (req, res) => {
       res.send({ status: "error" });
     }
   });
+
   //Profile Details
   router.post("/userData",async(req,res)=>{
 

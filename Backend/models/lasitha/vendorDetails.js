@@ -2,6 +2,9 @@ const mongoose= require('mongoose');
 const Schema=mongoose.Schema;
 const vendorSchema=new Schema({
  
+    userType:{
+        type: String
+    },
     OrganizationName:{
         type: String,
         required: true
@@ -20,7 +23,7 @@ const vendorSchema=new Schema({
     },
     icon:{
         type: String,
-        required: true
+        
     },
     password:{
         type: String,
@@ -28,8 +31,9 @@ const vendorSchema=new Schema({
     },
      date:{
         type: String,
-        required: true
+       
     }
+    
 
 })
 const vendor = mongoose.model("vendor",vendorSchema);

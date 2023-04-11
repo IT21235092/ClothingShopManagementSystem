@@ -1,7 +1,8 @@
 const express = require('express');
 const vendor = require('../../models/lasitha/vendorDetails');
-// const collection = require('../../models/pamudu/userSchema');
-// const Dash = require('../../models/pamudu/dashSchema');
+const vendordata = require('../../models/lasitha/vendorStockDetails');
+const collection = require('../../models/pamudu/userSchema');
+const Dash = require('../../models/pamudu/dashSchema');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require("cors");
@@ -18,7 +19,7 @@ const JWT_SECRET = "hdhjsahdahdjhaj123()aauauaayayka13414959487laksfjafkaf"
 
 router.post('/Vpost/save',(req,res)=>{
 
-    let newPost = new vendor(req.body);
+    let newPost = new vendordata(req.body);
 
     newPost.save((err) =>{
 
@@ -41,7 +42,7 @@ router.post('/Vpost/save',(req,res)=>{
 //get posts
 
 router.get('/Vposts',(req,res) =>{
-    vendor.find().exec((err,posts) =>{
+    vendordata.find().exec((err,posts) =>{
         if(err){
             return res.status(400).json({
                 error:err
@@ -63,7 +64,7 @@ router.get("/Vpost/:id",(req,res) =>{
 
     let postId = req.params.id;
 
-    vendor.findById(postId,(err,post) =>{
+    vendordata.findById(postId,(err,post) =>{
 
         if(err){
             return res.status(400).json({success:false, err})
@@ -78,11 +79,11 @@ router.get("/Vpost/:id",(req,res) =>{
 
 //update routes
 
-router.put('/post/update/:id',(req,res)=>{
+router.put('/vpost/update/:id',(req,res)=>{
 
     
     
-   vendor.findByIdAndUpdate(req.params.id,
+    vendordata.findByIdAndUpdate(req.params.id,
         {
             $set:req.body
         },
@@ -102,9 +103,9 @@ router.put('/post/update/:id',(req,res)=>{
 
 //delete post
 
-router.delete('/post/delete/:id', (req,res)=>{
+router.delete('/vpost/delete/:id', (req,res)=>{
 
-    vendor.findByIdAndRemove(req.params.id).exec((err,deletedPost) =>{
+    vendordata.findByIdAndRemove(req.params.id).exec((err,deletedPost) =>{
 
         if(err) return res.status(400).json({
 
@@ -118,10 +119,10 @@ router.delete('/post/delete/:id', (req,res)=>{
 });
 
 //Login
-router.post("/",async(req,res) =>{
-    const{email,password}=req.body;
+router.post("/v",async(req,res) =>{
+    const{Email,password}=req.body;
 
-    const user = await collection.findOne({email});
+    const user = await vendor.findOne({Email});
 
     if(!user){
         return res.send({error: "User not exist"});
@@ -129,8 +130,8 @@ router.post("/",async(req,res) =>{
 
     if(await bcrypt.compare(password,user.password)){
 
-        const token=jwt.sign({email: user.email},JWT_SECRET, {
-            expiresIn: "1h",
+        const token=jwt.sign({email: user.Email},JWT_SECRET, {
+            expiresIn: 60,
         });
 
         if(res.status(201)){
@@ -145,18 +146,18 @@ router.post("/",async(req,res) =>{
     res.json({status: "error",error:"Invalid Password"});
     
 });
-//Registration
-router.post("/register", async (req, res) => {
-    const { email, password, user, userType,telephone,address,firstname,lastname } = req.body;
+// vendor Registration
+router.post("/Vregister", async (req, res) => {
+    const { userType, OrganizationName, Email, address, phone_no, icon, password, date } = req.body;
   
     const encryptedPassword = await bcrypt.hash(password,10);
     try {
-        const oldUser = await collection.findOne({email});
+        const oldUser = await collection.findOne({Email});
 
         if(oldUser){
             return res.send({error: "User exist"})
         }
-      await collection.create({ email, user, password:encryptedPassword ,userType ,telephone,address,firstname,lastname});
+      await vendor.create({ Email, password:encryptedPassword ,userType ,phone_no,address,OrganizationName, icon, date});
       res.send({ status: "ok" });
     } catch (e) {
       res.send({ status: "error" });
