@@ -13,14 +13,13 @@ import Dashboard from './pamudu/Dashboard';
 import AddDetails from './pamudu/AddDetails';
 import Employee from './pamudu/Employee';
 import EditEmployee from './pamudu/EditEmployee';
-import EditPeople from './pamudu/EditPeople';
 import Profile from './pamudu/Profile';
+import VendorRegister from './lasitha/vendorRegister';
+import VendorLogin from './lasitha/vendorLogin';
+
 import './App.css';
-import CreateAcc from './pamudu/CreateAcc';
-import Customer from './inthi/Customer';
-import CusAdd from './inthi/CusAdd';
-import CusEdit from './inthi/CusEdit';
-import UserProfilePer from './pamudu/UserProfilePer';
+
+
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -31,26 +30,20 @@ function App() {
       
 
         <Routes>
-          <Route exact path="/" element={isLoggedIn === 'true' ? <Dashboard/> : <Login/> } />
+        <Route exact path="/" element={isLoggedIn === 'true' ? <Dashboard/> : <VendorLogin/> } />
+        <Route path="/Vregister" element={isLoggedIn === 'true' ? <Dashboard/> : <VendorRegister/> } />
+          {/* <Route exact path="/" element={isLoggedIn === 'true' ? <Dashboard/> : <Login/> } />
           <Route path="/dash" element={<Dashboard />} />
           <Route path="/register" element={<Register />} />
           <Route path="/emp" element={<Employee />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/add" element={<CreatePost />} />
           <Route path="/editemp/:id" element={<EditEmployee />} />
-          <Route path="/editpeople/:id" element={<EditPeople />} />
           <Route path="/edit/:id" element={<EditPost />} />
           <Route path="/post/:id" element={<PostDetails />} />
           <Route path="/addD" element={<AddDetails />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/userProfile" element={<UserProfile />} />
-          <Route path="/addP" element={<CreateAcc />} />
-          <Route path="/Customer" element={<Customer />} />
-          <Route path="/CusEdit/:id" element={<CusEdit/>} />
-          <Route path="/CusAdd" element={<CusAdd/>} />
-          <Route path="/userProfilePer/:id" element={<UserProfilePer/>} />
-
-
+          <Route path="/userProfile" element={<UserProfile />} /> */}
         </Routes>
       </div>
     </BrowserRouter>
