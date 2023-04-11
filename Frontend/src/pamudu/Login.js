@@ -1,6 +1,7 @@
 import React, { Component, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
+
 export default class Login extends Component {
   
   constructor(props){
@@ -110,6 +111,10 @@ export default class Login extends Component {
                 />
                 <label className="form-check-label" htmlFor="exampleCheck1">
                   Remember me
+                </label>
+
+                <label className="form-check-label" htmlFor="exampleCheck1">
+                  <a href="/v">   Vendor</a>
                 </label>
               </div>
               <button

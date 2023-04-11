@@ -207,6 +207,9 @@ export default class Register extends Component {
                 <label className="form-check-label" htmlFor="exampleCheck1">
                   I Agree Terms and Conditions
                 </label>
+                <label className="form-check-label" htmlFor="exampleCheck1">
+                  <a href="/Vregister">   Vendor</a>
+                </label>
               </div>
               <button
                 type="submit"

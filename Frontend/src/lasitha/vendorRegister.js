@@ -2,7 +2,7 @@ import React, {useState, Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 
-export default class vendorRegister extends Component {
+ class VendorRegister extends Component {
 
  
   constructor(props) {
@@ -73,7 +73,7 @@ export default class vendorRegister extends Component {
               <p className="lead text-center">Enter Your Details to Register</p>
               <h5 className="mb-4">OR</h5>
               <NavLink
-                to="/"
+                to="/v"
                 className="btn btn-outline-light rounded-pill pb-2 w-50"
               >
                 Login
@@ -203,6 +203,9 @@ export default class vendorRegister extends Component {
                 <label className="form-check-label" htmlFor="exampleCheck1">
                   I Agree Terms and Conditions
                 </label>
+                <label className="form-check-label" htmlFor="exampleCheck1">
+                  <a href="/register">   User</a>
+                </label>
               </div>
               <button
                 type="submit"
@@ -220,3 +223,5 @@ export default class vendorRegister extends Component {
 }
 
 }
+
+export default VendorRegister;

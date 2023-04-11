@@ -152,7 +152,7 @@ router.post("/Vregister", async (req, res) => {
   
     const encryptedPassword = await bcrypt.hash(password,10);
     try {
-        const oldUser = await collection.findOne({Email});
+        const oldUser = await vendor.findOne({Email});
 
         if(oldUser){
             return res.send({error: "User exist"})
@@ -164,7 +164,7 @@ router.post("/Vregister", async (req, res) => {
     }
   });
   //Profile Details
-  router.post("/userData",async(req,res)=>{
+  router.post("/VuserData",async(req,res)=>{
 
     const {token} =req.body;
     try{
@@ -180,8 +180,8 @@ router.post("/Vregister", async (req, res) => {
 
             return res.send({status: "error", data: "token expired"});
         }
-        const useremail = user.email;
-        collection.findOne({email:useremail})
+        const useremail = user.Email;
+        vendor.findOne({Email:useremail})
         .then((data)=>{
             res.send({status: "ok", data: data});
         }).catch((error)=>{
@@ -192,6 +192,24 @@ router.post("/Vregister", async (req, res) => {
 
     }
   })
+
+  // Emp Details
+router.get('/Vaccounts',(req,res) =>{
+    vendor.find().exec((err,userSchema) =>{
+        if(err){
+            return res.status(400).json({
+                error:err
+            });
+
+
+        }
+
+        return res.status(200).json({
+            success:true,
+            userDetails:userSchema
+        });
+    });
+});
 
 
 
