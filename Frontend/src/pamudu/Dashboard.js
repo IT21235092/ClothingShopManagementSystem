@@ -97,13 +97,13 @@ export default class Dashboard extends Component {
     const result = userSchema.filter((post) =>  
     
     
-    post.firstname.toLowerCase().includes(searchKey) ||
-    post.lastname.toLowerCase().includes(searchKey)||
-    post.address.toLowerCase().includes(searchKey) ||
+    post.firstname.includes(searchKey) || post.firstname.toLowerCase().toUpperCase().includes(searchKey)||
+    post.lastname.includes(searchKey)|| post.lastname.toLowerCase().toUpperCase().includes(searchKey)||
+    post.address.includes(searchKey) || post.address.toLowerCase().toUpperCase().includes(searchKey)||
     post.telephone.toString().includes(searchKey) ||
-    post.user.toLowerCase().includes(searchKey) ||
-    post.userType.toLowerCase().includes(searchKey) ||
-    post.email.toLowerCase().includes(searchKey) 
+    post.user.includes(searchKey) || post.user.toLowerCase().toUpperCase().includes(searchKey)||
+    post.userType.includes(searchKey) || post.userType.toLowerCase().toUpperCase().includes(searchKey)||
+    post.email.toLowerCase().includes(searchKey) || post.email.toLowerCase().toUpperCase().includes(searchKey)
 
     )
 
