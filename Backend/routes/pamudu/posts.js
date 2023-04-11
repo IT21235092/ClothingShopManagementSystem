@@ -117,6 +117,20 @@ router.delete('/post/delete/:id', (req,res)=>{
     });
 });
 
+  //TaskCount
+
+  router.get('/post/count/:id', async (req, res) => {
+    const { userId } = req.params;
+  
+    try {
+      const count = await Posts.countDocuments({id: userId });
+      res.json({ count });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
 //Login
 router.post("/",async(req,res) =>{
     const{email,password}=req.body;
@@ -307,8 +321,22 @@ router.get('/accounts/count/:id', async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   });
+
+  //TaskCount
+
+router.get('/posts/count/:id', async (req, res) => {
+    const { userId } = req.params;
   
-  module.exports = router;
+    try {
+      const count = await Posts.countDocuments({id: userId });
+      res.json({ count });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+  
 
 //save posts
 

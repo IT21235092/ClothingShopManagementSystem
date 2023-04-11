@@ -19,11 +19,14 @@ export default class Dashboard extends Component {
       
       userData: "",
       userSchema:[],
+      posts:[],
       admin: false,
       vendor: false,
       userType:"",
       count: null,
-      error: null
+      error: null,
+      Tcount: null,
+      Terror: null
 
   
 
@@ -33,6 +36,7 @@ export default class Dashboard extends Component {
   componentDidMount(){
     const { userId } = this.props;
     this.fetchAccountCount(userId);
+    this.fetchTaskCount(userId);
     
     this.retrievePosts();
     const { userType } = this.state;
@@ -78,6 +82,7 @@ export default class Dashboard extends Component {
     const { userId } = this.props;
     if (userId !== prevProps.userId) {
       this.fetchAccountCount(userId);
+      this.fetchTaskCount(userId);
     }
   }
 
@@ -88,6 +93,16 @@ export default class Dashboard extends Component {
     } catch (error) {
       console.error(error);
       this.setState({ error: 'Server error' });
+    }
+  }
+
+  async fetchTaskCount(userId) {
+    try {
+      const response = await axios.get(`http://localhost:8000/post/count/${userId}`);
+      this.setState({ Tcount: response.data.count });
+    } catch (error) {
+      console.error(error);
+      this.setState({ Terror: 'Server error' });
     }
   }
 
@@ -287,27 +302,52 @@ export default class Dashboard extends Component {
 
      
      
-
-      <div class="card text-primary bg-outline-primary mt-4 " id='card'>
-  <div class="card-header">Staff </div>
-  <div class="card-body">
-    <h5 class="card-title">Employees' Count = {this.state.count} </h5>
-    <p class="card-text"> <div className="progress rounded-circle" style={{ width: '120px', height: '120px' }}>
-      <div
-        className="progress-bar rounded-circle"
-        role="progressbar"
-        style={{ width: `${this.state.count * 5}%`, height: '120px', borderRadius: '60px' }}
-        aria-valuenow={this.state.count}
-        aria-valuemin="0"
-        aria-valuemax="100"
-      >
-        <span className="visually-visible">{this.state.count * 5}%</span>
-      </div>
-    </div></p>
+      <div style={{ display: 'flex' }}>
+  <div class="card text-primary bg-outline-primary mt-4" id='card' style={{ marginRight: '10px' }}>
+    <div class="card-header">Staff</div>
+    <div class="card-body">
+      <h5 class="card-title">Employees' Count = {this.state.count} </h5>
+      <p class="card-text">
+        <div className="progress rounded-circle" style={{ width: '120px', height: '120px' }}>
+          <div
+            className="progress-bar rounded-circle"
+            role="progressbar"
+            style={{ width: `${this.state.count * 5}%`, height: '120px', borderRadius: '60px' }}
+            aria-valuenow={this.state.count}
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <span className="visually-visible">{this.state.count * 5}%</span>
+          </div>
+        </div>
+      </p>
+    </div>
   </div>
-
-  
+ 
+  <div class="card text-primary bg-outline-primary mt-4" id='card' style={{ marginLeft: '30px' }}>
+    <div class="card-header">Work</div>
+    <div class="card-body">
+      <h5 class="card-title">Employee Tasks Count = {this.state.Tcount} </h5>
+      <p class="card-text">
+        <div className="progress rounded-circle" style={{ width: '120px', height: '120px' }}>
+          <div
+            className="progress-bar rounded-circle"
+            role="progressbar"
+            style={{ width: `${this.state.Tcount * 5}%`, height: '120px', borderRadius: '60px' }}
+            aria-valuenow={this.state.Tcount}
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <span className="visually-visible">{this.state.Tcount * 5}%</span>
+          </div>
+        </div>
+      </p>
+    </div>
+  </div>
 </div>
+
+    
+
 <br/>
       <input className='form-control' type = "search" placeholder='Search' name ="searchQuery" 
             onChange={this.handleSearchArea}>
