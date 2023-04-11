@@ -1,62 +1,45 @@
-import React, { Component } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBCard,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardImage,
-  MDBBtn,
-  MDBBreadcrumb,
-  MDBBreadcrumbItem,
-  MDBProgress,
-  MDBProgressBar,
-  MDBIcon,
-  MDBListGroup,
-  MDBListGroupItem
-} from 'mdb-react-ui-kit';
-import NavBar from './NavBar';
+    MDBCol,
+    MDBContainer,
+    MDBRow,
+    MDBCard,
+    MDBCardText,
+    MDBCardBody,
+    MDBCardImage,
+    MDBBtn,
+    MDBBreadcrumb,
+    MDBBreadcrumbItem,
+    MDBProgress,
+    MDBProgressBar,
+    MDBIcon,
+    MDBListGroup,
+    MDBListGroupItem
+  } from 'mdb-react-ui-kit';
+  import NavBar from './NavBar';
 
-export default class UserProfile extends Component{
+const UserProfilePer = () => {
+  const { id } = useParams();
+  const [post, setPost] = useState({});
 
-    constructor(props){
-        super(props);
-    
-        this.state ={
-    
-          userData: "",
-          
-        };
-      }
-    
-      componentDidMount(){
-        
-        fetch(`http://localhost:8000/userData`, {
-          method: "POST",
-          crossDomain: true,
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-    
-           token: window.localStorage.getItem("token"),
-          }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data, "userData");
-            this.setState({userData: data.data})
-          });
-            
-      }
+  useEffect(() => {
+    axios.get(`http://localhost:8000/accounts/${id}`)
+      .then((res) => {
+        if (res.data.success) {
+          setPost(res.data.post);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
 
-    render(){
-    
+  const { user,firstname,lastname, email, telephone,address,userType } = post;
+
   return (
-    <div>
+     <div>
     <NavBar/>
     <section style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="py-5">
@@ -113,7 +96,7 @@ export default class UserProfile extends Component{
                     <MDBCardText>User Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{this.state.userData.user}</MDBCardText>
+                    <MDBCardText className="text-muted">{user}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <br/>
@@ -124,7 +107,7 @@ export default class UserProfile extends Component{
                     <MDBCardText>First Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{this.state.userData.firstname}</MDBCardText>
+                    <MDBCardText className="text-muted">{firstname}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -133,7 +116,7 @@ export default class UserProfile extends Component{
                     <MDBCardText>Last Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{this.state.userData.lastname}</MDBCardText>
+                    <MDBCardText className="text-muted">{lastname}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -142,7 +125,7 @@ export default class UserProfile extends Component{
                     <MDBCardText>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{this.state.userData.email}</MDBCardText>
+                    <MDBCardText className="text-muted">{email}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -151,7 +134,7 @@ export default class UserProfile extends Component{
                     <MDBCardText>Tele-Phone</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{this.state.userData.telephone}</MDBCardText>
+                    <MDBCardText className="text-muted">{telephone}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -160,7 +143,7 @@ export default class UserProfile extends Component{
                     <MDBCardText>Address</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{this.state.userData.address}</MDBCardText>
+                    <MDBCardText className="text-muted">{address}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -169,7 +152,7 @@ export default class UserProfile extends Component{
                     <MDBCardText>User Type</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{this.state.userData.userType}</MDBCardText>
+                    <MDBCardText className="text-muted">{userType}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
@@ -246,5 +229,6 @@ export default class UserProfile extends Component{
     </section>
     </div>
   );
-}
-}
+};
+
+export default UserProfilePer;

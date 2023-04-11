@@ -117,6 +117,20 @@ router.delete('/post/delete/:id', (req,res)=>{
     });
 });
 
+  //TaskCount
+
+  router.get('/post/count/:id', async (req, res) => {
+    const { userId } = req.params;
+  
+    try {
+      const count = await Posts.countDocuments({id: userId });
+      res.json({ count });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
 //Login
 router.post("/",async(req,res) =>{
     const{email,password}=req.body;
@@ -211,6 +225,139 @@ router.get('/accounts',(req,res) =>{
         });
     });
 });
+
+//get a Emp Details
+
+router.get("/accounts/:id",(req,res) =>{
+
+    let empId = req.params.id;
+
+    collection.findById(empId,(err,post) =>{
+
+        if(err){
+            return res.status(400).json({success:false, err})
+        }
+
+        return res.status(200).json({
+            success:true,
+            post
+        });
+    });
+});
+
+
+//update Emp Details
+
+router.put('/accounts/update/:id',(req,res)=>{
+
+    
+    
+    collection.findByIdAndUpdate(req.params.id,
+        {
+            $set:req.body
+        },
+        (err,post) =>{
+
+            if(err){
+                return res.status(400).json({error:err});
+            }
+
+            return res.status(200).json({
+                success:"Updated Succesfully",
+                
+            });
+        }
+    );
+});
+
+//delete Emp Details
+
+router.delete('/accounts/delete/:id', (req,res)=>{
+
+    collection.findByIdAndRemove(req.params.id).exec((err,deletedPost) =>{
+
+        if(err) return res.status(400).json({
+
+            message:"Delete unsuccessful", err
+        });
+
+        return res.json({
+            messege:"Delete Successful",deletedPost
+        });
+    });
+});
+
+//save Emp Details
+
+router.post('/accounts/save',(req,res)=>{
+
+    let newPost = new collection(req.body);
+
+    newPost.save((err) =>{
+
+        if(err){
+            return res.status(400).json({
+                error:err
+            });
+        }
+
+        return res.status(200).json({
+
+            success:"Posts saved successfully"
+        });
+    });
+
+
+});
+
+//EmpCount
+
+router.get('/accounts/count/:id', async (req, res) => {
+    const { userId } = req.params;
+  
+    try {
+      const count = await collection.countDocuments({id: userId });
+      res.json({ count });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
+  //get a User Profile
+
+router.get("/accounts/:id",(req,res) =>{
+
+    let empId = req.params.id;
+
+    collection.findById(empId,(err,post) =>{
+
+        if(err){
+            return res.status(400).json({success:false, err})
+        }
+
+        return res.status(200).json({
+            success:true,
+            post
+        });
+    });
+});
+
+  //TaskCount
+
+router.get('/posts/count/:id', async (req, res) => {
+    const { userId } = req.params;
+  
+    try {
+      const count = await Posts.countDocuments({id: userId });
+      res.json({ count });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+  
 
 //save posts
 

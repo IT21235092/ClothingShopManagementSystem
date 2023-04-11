@@ -8,13 +8,14 @@ const app = express();
 //import routes
 const postRoutes = require('./routes/pamudu/posts');
 const vendorRoutes = require('./routes/lasitha/post');
+const customerRoutes = require('./routes/inthi/customer');
 
 //app middleware
 app.use(bodyParser.json());
 app.use(cors());
-
 app.use(postRoutes);
 app.use(vendorRoutes);
+app.use(customerRoutes);
 
 const port = 8000;
 

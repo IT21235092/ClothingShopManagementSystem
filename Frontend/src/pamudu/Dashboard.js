@@ -7,6 +7,8 @@ import '../App.css'
 import Profile from './Profile';
 import Home from './Home';
 import UserProfile from './UserProfile';
+import Customer from '../inthi/Customer';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class Dashboard extends Component {
   constructor(props){
@@ -14,17 +16,28 @@ export default class Dashboard extends Component {
 
     this.state ={
 
+      
       userData: "",
       userSchema:[],
+      posts:[],
       admin: false,
       vendor: false,
       userType:"",
+      count: null,
+      error: null,
+      Tcount: null,
+      Terror: null
+
   
 
     };
   }
 
   componentDidMount(){
+    const { userId } = this.props;
+    this.fetchAccountCount(userId);
+    this.fetchTaskCount(userId);
+    
     this.retrievePosts();
     const { userType } = this.state;
     fetch(`http://localhost:8000/userData`, {
@@ -65,6 +78,36 @@ export default class Dashboard extends Component {
         
   }
 
+  componentDidUpdate(prevProps) {
+    const { userId } = this.props;
+    if (userId !== prevProps.userId) {
+      this.fetchAccountCount(userId);
+      this.fetchTaskCount(userId);
+    }
+  }
+
+  async fetchAccountCount(userId) {
+    try {
+      const response = await axios.get(`http://localhost:8000/accounts/count/${userId}`);
+      this.setState({ count: response.data.count });
+    } catch (error) {
+      console.error(error);
+      this.setState({ error: 'Server error' });
+    }
+  }
+
+  async fetchTaskCount(userId) {
+    try {
+      const response = await axios.get(`http://localhost:8000/post/count/${userId}`);
+      this.setState({ Tcount: response.data.count });
+    } catch (error) {
+      console.error(error);
+      this.setState({ Terror: 'Server error' });
+    }
+  }
+
+
+
   
   retrievePosts(){
 
@@ -81,7 +124,51 @@ export default class Dashboard extends Component {
 
   }
 
+  onDelete = (id) =>{
+
+    axios.delete(`http://localhost:8000/accounts/delete/${id}`).then((res) =>{
+      this.retrievePosts();
+    alert("Deleted Successfully");
+    
+    })
+  }
+
+  filterData(userSchema,searchKey){
+    
+    const result = userSchema.filter((post) =>  
+    
+    
+    post.firstname.includes(searchKey) || post.firstname.toLowerCase().toUpperCase().includes(searchKey)||
+    post.lastname.includes(searchKey)|| post.lastname.toLowerCase().toUpperCase().includes(searchKey)||
+    post.address.includes(searchKey) || post.address.toLowerCase().toUpperCase().includes(searchKey)||
+    post.telephone.toString().includes(searchKey) ||
+    post.user.includes(searchKey) || post.user.toLowerCase().toUpperCase().includes(searchKey)||
+    post.userType.includes(searchKey) || post.userType.toLowerCase().toUpperCase().includes(searchKey)||
+    post.email.toLowerCase().includes(searchKey) || post.email.toLowerCase().toUpperCase().includes(searchKey)
+
+    )
+
+    this.setState({userSchema:result})
+  }
+
+  handleSearchArea =(e) => {
+
+
+    console.timeLog(e.currentTarget.value);
+    const searchKey = e.currentTarget.value;
+
+    axios.get("http://localhost:8000/accounts").then(res =>{
+      if(res.data.success){
+
+        this.filterData(res.data.userDetails,searchKey)
+      }
+  })
+
+  }
+
   render() {
+
+
     return (
        this.state.admin?(
         <div>
@@ -213,7 +300,60 @@ export default class Dashboard extends Component {
         </div>
       </div>
 
-      <h2>Employee Details</h2>
+     
+     
+      <div style={{ display: 'flex' }}>
+  <div class="card text-primary bg-outline-primary mt-4" id='card' style={{ marginRight: '10px' }}>
+    <div class="card-header">Staff</div>
+    <div class="card-body">
+      <h5 class="card-title">Employees' Count = {this.state.count} </h5>
+      <p class="card-text">
+        <div className="progress rounded-circle" style={{ width: '120px', height: '120px' }}>
+          <div
+            className="progress-bar rounded-circle"
+            role="progressbar"
+            style={{ width: `${this.state.count * 5}%`, height: '120px', borderRadius: '60px' }}
+            aria-valuenow={this.state.count}
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <span className="visually-visible">{this.state.count * 5}%</span>
+          </div>
+        </div>
+      </p>
+    </div>
+  </div>
+ 
+  <div class="card text-primary bg-outline-primary mt-4" id='card' style={{ marginLeft: '30px' }}>
+    <div class="card-header">Work</div>
+    <div class="card-body">
+      <h5 class="card-title">Employee Tasks Count = {this.state.Tcount} </h5>
+      <p class="card-text">
+        <div className="progress rounded-circle" style={{ width: '120px', height: '120px' }}>
+          <div
+            className="progress-bar rounded-circle"
+            role="progressbar"
+            style={{ width: `${this.state.Tcount * 5}%`, height: '120px', borderRadius: '60px' }}
+            aria-valuenow={this.state.Tcount}
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <span className="visually-visible">{this.state.Tcount * 5}%</span>
+          </div>
+        </div>
+      </p>
+    </div>
+  </div>
+</div>
+
+    
+
+<br/>
+      <input className='form-control' type = "search" placeholder='Search' name ="searchQuery" 
+            onChange={this.handleSearchArea}>
+
+            </input>
+            <br/>
       <div className="table-responsive">
         <table className="table tablr-hover" style={{marginTop:'20px'}}>
           <thead>
@@ -238,9 +378,22 @@ export default class Dashboard extends Component {
               <td>{userSchema.email}</td>
               <td>{userSchema.address}</td>
               <td>{userSchema.telephone}</td>
-              <td>{userSchema.userType}</td>
-             
-              <td>
+              <td>{userSchema.userType}</td>             
+              <td><td>
+
+              <div class="dropdown">
+  <a class=" dropdown-toggle"  role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    
+  </a>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" href={`/editpeople/${userSchema._id}`}>Edit</a></li>
+    <li><a class="dropdown-item" href="#" onClick ={()=>this.onDelete(userSchema._id)}>Delete</a></li>
+    <li><a class="dropdown-item" href={`/userProfilePer/${userSchema._id}`}>ViewProfile</a></li>
+  </ul>
+</div>
+                
+              </td>
        
            
           </td>
@@ -249,6 +402,8 @@ export default class Dashboard extends Component {
           </tbody>
 ))}
         </table>
+
+        <button className ="btn btn-success mt-2 rounded-pill"><a href="/addP" style ={{textDecoration: 'none' ,color : 'white'}}>Add New User</a></button>
         
       </div>
     </main>
@@ -258,13 +413,13 @@ export default class Dashboard extends Component {
     </div>
       ) : (
         
-         <Profile userData={this.state.userData} />
+         <Customer userData={this.state.userData} />
 
       ) && this.state.vendor ?(
         <UserProfile userData={this.state.userData}/> 
       ) : (
 
-        <Profile userData={this.state.userData} />
+        <Customer userData={this.state.userData} />
       )
     );
   }
