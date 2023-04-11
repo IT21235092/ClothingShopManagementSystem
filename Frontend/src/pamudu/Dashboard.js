@@ -266,6 +266,8 @@ export default class Dashboard extends Component {
           </tbody>
 ))}
         </table>
+
+        <button className ="btn btn-success mt-2 rounded-pill"><a href="/addP" style ={{textDecoration: 'none' ,color : 'white'}}>Add New User</a></button>
         
       </div>
     </main>

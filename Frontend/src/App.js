@@ -16,6 +16,7 @@ import EditEmployee from './pamudu/EditEmployee';
 import EditPeople from './pamudu/EditPeople';
 import Profile from './pamudu/Profile';
 import './App.css';
+import CreateAcc from './pamudu/CreateAcc';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -39,6 +40,7 @@ function App() {
           <Route path="/addD" element={<AddDetails />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/userProfile" element={<UserProfile />} />
+          <Route path="/addP" element={<CreateAcc />} />
         </Routes>
       </div>
     </BrowserRouter>

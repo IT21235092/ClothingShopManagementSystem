@@ -229,6 +229,7 @@ router.get("/accounts/:id",(req,res) =>{
     });
 });
 
+
 //update Emp Details
 
 router.put('/accounts/update/:id',(req,res)=>{
@@ -268,6 +269,29 @@ router.delete('/accounts/delete/:id', (req,res)=>{
             messege:"Delete Successful",deletedPost
         });
     });
+});
+
+//save Emp Details
+
+router.post('/accounts/save',(req,res)=>{
+
+    let newPost = new collection(req.body);
+
+    newPost.save((err) =>{
+
+        if(err){
+            return res.status(400).json({
+                error:err
+            });
+        }
+
+        return res.status(200).json({
+
+            success:"Posts saved successfully"
+        });
+    });
+
+
 });
 
 //save posts
