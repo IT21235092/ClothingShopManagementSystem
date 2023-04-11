@@ -17,6 +17,9 @@ import EditPeople from './pamudu/EditPeople';
 import Profile from './pamudu/Profile';
 import './App.css';
 import CreateAcc from './pamudu/CreateAcc';
+import Customer from './inthi/Customer';
+import CusAdd from './inthi/CusAdd';
+import CusEdit from './inthi/CusEdit';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -41,6 +44,10 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/addP" element={<CreateAcc />} />
+          <Route path="/Customer" element={<Customer />} />
+          <Route path="/CusEdit/:id" element={<CusEdit/>} />
+          <Route path="/CusAdd" element={<CusAdd/>} />
+
         </Routes>
       </div>
     </BrowserRouter>

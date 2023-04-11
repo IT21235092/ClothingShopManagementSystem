@@ -7,6 +7,7 @@ import '../App.css'
 import Profile from './Profile';
 import Home from './Home';
 import UserProfile from './UserProfile';
+import Customer from '../inthi/Customer';
 
 export default class Dashboard extends Component {
   constructor(props){
@@ -89,6 +90,39 @@ export default class Dashboard extends Component {
     alert("Deleted Successfully");
     
     })
+  }
+
+  filterData(userSchema,searchKey){
+    
+    const result = userSchema.filter((post) =>  
+    
+    
+    post.firstname.toLowerCase().includes(searchKey) ||
+    post.lastname.toLowerCase().includes(searchKey)||
+    post.address.toLowerCase().includes(searchKey) ||
+    post.telephone.toString().includes(searchKey) ||
+    post.user.toLowerCase().includes(searchKey) ||
+    post.userType.toLowerCase().includes(searchKey) ||
+    post.email.toLowerCase().includes(searchKey) 
+
+    )
+
+    this.setState({userSchema:result})
+  }
+
+  handleSearchArea =(e) => {
+
+
+    console.timeLog(e.currentTarget.value);
+    const searchKey = e.currentTarget.value;
+
+    axios.get("http://localhost:8000/accounts").then(res =>{
+      if(res.data.success){
+
+        this.filterData(res.data.userDetails,searchKey)
+      }
+  })
+
   }
 
   render() {
@@ -224,6 +258,12 @@ export default class Dashboard extends Component {
       </div>
 
       <h2>Employee Details</h2>
+<br/>
+      <input className='form-control' type = "search" placeholder='Search' name ="searchQuery" 
+            onChange={this.handleSearchArea}>
+
+            </input>
+            <br/>
       <div className="table-responsive">
         <table className="table tablr-hover" style={{marginTop:'20px'}}>
           <thead>
@@ -277,13 +317,13 @@ export default class Dashboard extends Component {
     </div>
       ) : (
         
-         <Profile userData={this.state.userData} />
+         <Customer userData={this.state.userData} />
 
       ) && this.state.vendor ?(
         <UserProfile userData={this.state.userData}/> 
       ) : (
 
-        <Profile userData={this.state.userData} />
+        <Customer userData={this.state.userData} />
       )
     );
   }
