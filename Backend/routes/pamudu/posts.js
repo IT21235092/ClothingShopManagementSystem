@@ -322,6 +322,25 @@ router.get('/accounts/count/:id', async (req, res) => {
     }
   });
 
+  //get a User Profile
+
+router.get("/accounts/:id",(req,res) =>{
+
+    let empId = req.params.id;
+
+    collection.findById(empId,(err,post) =>{
+
+        if(err){
+            return res.status(400).json({success:false, err})
+        }
+
+        return res.status(200).json({
+            success:true,
+            post
+        });
+    });
+});
+
   //TaskCount
 
 router.get('/posts/count/:id', async (req, res) => {

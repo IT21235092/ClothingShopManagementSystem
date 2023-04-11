@@ -20,6 +20,7 @@ import CreateAcc from './pamudu/CreateAcc';
 import Customer from './inthi/Customer';
 import CusAdd from './inthi/CusAdd';
 import CusEdit from './inthi/CusEdit';
+import UserProfilePer from './pamudu/UserProfilePer';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
@@ -47,6 +48,8 @@ function App() {
           <Route path="/Customer" element={<Customer />} />
           <Route path="/CusEdit/:id" element={<CusEdit/>} />
           <Route path="/CusAdd" element={<CusAdd/>} />
+          <Route path="/userProfilePer/:id" element={<UserProfilePer/>} />
+
 
         </Routes>
       </div>

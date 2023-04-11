@@ -378,16 +378,22 @@ export default class Dashboard extends Component {
               <td>{userSchema.email}</td>
               <td>{userSchema.address}</td>
               <td>{userSchema.telephone}</td>
-              <td>{userSchema.userType}</td>
-              <td>
-           <a className="btn btn-warning mt-2 rounded-pill" href={`/editpeople/${userSchema._id}`}>
-            <i className="fas fa-edit"></i>&nbsp;Edit
-           </a> &nbsp;
-                 <a className="btn btn-danger mt-2 rounded-pill" href="#" onClick ={()=>this.onDelete(userSchema._id)}>
-                  <i className="far fa-trash-alt"></i>&nbsp;Delete
-                 </a></td>
-             
-              <td>
+              <td>{userSchema.userType}</td>             
+              <td><td>
+
+              <div class="dropdown">
+  <a class=" dropdown-toggle"  role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    
+  </a>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" href={`/editpeople/${userSchema._id}`}>Edit</a></li>
+    <li><a class="dropdown-item" href="#" onClick ={()=>this.onDelete(userSchema._id)}>Delete</a></li>
+    <li><a class="dropdown-item" href={`/userProfilePer/${userSchema._id}`}>ViewProfile</a></li>
+  </ul>
+</div>
+                
+              </td>
        
            
           </td>

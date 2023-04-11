@@ -160,9 +160,9 @@ export default class Home extends Component {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Topic</th>
+              <th scope="col">Task</th>
               <th scope="col">Description</th>
-              <th scope="col">Post Category</th>
+              <th scope="col">Task Category</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -175,11 +175,11 @@ export default class Home extends Component {
                 <td>{posts.description}</td>
                 <td>{posts.postCategory}</td>
                 <td>
-                 <a className="btn btn-warning" href={`/edit/${posts._id}`}>
+                 <a className="btn btn-warning mt-2 rounded-pill" href={`/edit/${posts._id}`}>
                   <i className="fas fa-edit"></i>&nbsp;Edit
                  </a>
                  &nbsp;
-                 <a className="btn btn-danger" href="#" onClick ={()=>this.onDelete(posts._id)}>
+                 <a className="btn btn-danger mt-2 rounded-pill" href="#" onClick ={()=>this.onDelete(posts._id)}>
                   <i className="far fa-trash-alt"></i>&nbsp;Delete
                  </a>
                  
@@ -190,7 +190,7 @@ export default class Home extends Component {
           </tbody>
         </table>
 
-        <button className ="btn btn-success"><a href="/add" style ={{textDecoration: 'none' ,color : 'white'}}>Create New Post</a></button>
+        <button className ="btn btn-success mt-2 rounded-pill"><a href="/add" style ={{textDecoration: 'none' ,color : 'white'}}>Create New Post</a></button>
        
         </div>
         </main>
