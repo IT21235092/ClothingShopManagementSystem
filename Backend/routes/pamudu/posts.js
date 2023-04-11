@@ -294,6 +294,22 @@ router.post('/accounts/save',(req,res)=>{
 
 });
 
+//EmpCount
+
+router.get('/accounts/count/:id', async (req, res) => {
+    const { userId } = req.params;
+  
+    try {
+      const count = await collection.countDocuments({id: userId });
+      res.json({ count });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+  module.exports = router;
+
 //save posts
 
 router.post('/emp/save',(req,res)=>{

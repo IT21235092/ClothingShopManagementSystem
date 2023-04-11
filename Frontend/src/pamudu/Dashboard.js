@@ -8,6 +8,7 @@ import Profile from './Profile';
 import Home from './Home';
 import UserProfile from './UserProfile';
 import Customer from '../inthi/Customer';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class Dashboard extends Component {
   constructor(props){
@@ -21,12 +22,18 @@ export default class Dashboard extends Component {
       admin: false,
       vendor: false,
       userType:"",
+      count: null,
+      error: null
+
   
 
     };
   }
 
   componentDidMount(){
+    const { userId } = this.props;
+    this.fetchAccountCount(userId);
+    
     this.retrievePosts();
     const { userType } = this.state;
     fetch(`http://localhost:8000/userData`, {
@@ -66,6 +73,25 @@ export default class Dashboard extends Component {
       });
         
   }
+
+  componentDidUpdate(prevProps) {
+    const { userId } = this.props;
+    if (userId !== prevProps.userId) {
+      this.fetchAccountCount(userId);
+    }
+  }
+
+  async fetchAccountCount(userId) {
+    try {
+      const response = await axios.get(`http://localhost:8000/accounts/count/${userId}`);
+      this.setState({ count: response.data.count });
+    } catch (error) {
+      console.error(error);
+      this.setState({ error: 'Server error' });
+    }
+  }
+
+
 
   
   retrievePosts(){
@@ -126,6 +152,8 @@ export default class Dashboard extends Component {
   }
 
   render() {
+
+
     return (
        this.state.admin?(
         <div>
@@ -257,7 +285,29 @@ export default class Dashboard extends Component {
         </div>
       </div>
 
-      <h2>Employee Details</h2>
+     
+     
+
+      <div class="card text-primary bg-outline-primary mt-4 " id='card'>
+  <div class="card-header">Staff </div>
+  <div class="card-body">
+    <h5 class="card-title">Employees' Count = {this.state.count} </h5>
+    <p class="card-text"> <div className="progress rounded-circle" style={{ width: '120px', height: '120px' }}>
+      <div
+        className="progress-bar rounded-circle"
+        role="progressbar"
+        style={{ width: `${this.state.count * 5}%`, height: '120px', borderRadius: '60px' }}
+        aria-valuenow={this.state.count}
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <span className="visually-visible">{this.state.count * 5}%</span>
+      </div>
+    </div></p>
+  </div>
+
+  
+</div>
 <br/>
       <input className='form-control' type = "search" placeholder='Search' name ="searchQuery" 
             onChange={this.handleSearchArea}>
