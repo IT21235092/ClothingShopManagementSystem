@@ -24,11 +24,7 @@ export default class vendorRegister extends Component {
   }
 
   handleSubmit(e) {
-    if(this.state.userType=="Admin" && this.state.secretKey != "PamuduX" || this.state.userType=="Vendor" && this.state.secretKey != "PamuduX"){
-      e.preventDefault();
-      alert("Invalid Admin");
-    }else {
-
+  
       e.preventDefault();
     const { userType, OrganizationName, Email, address, phone_no, icon, password, date } = this.state;
     console.log(userType, OrganizationName, Email, address, phone_no, icon, password, date );
@@ -59,7 +55,7 @@ export default class vendorRegister extends Component {
         }
       });
 
-    }
+    
    
   }
 

@@ -131,7 +131,7 @@ router.post("/v",async(req,res) =>{
     if(await bcrypt.compare(password,user.password)){
 
         const token=jwt.sign({email: user.Email},JWT_SECRET, {
-            expiresIn: 60,
+            expiresIn: 10,
         });
 
         if(res.status(201)){
@@ -164,7 +164,7 @@ router.post("/Vregister", async (req, res) => {
     }
   });
   //Profile Details
-  router.post("/userData",async(req,res)=>{
+  router.post("/vendorData",async(req,res)=>{
 
     const {token} =req.body;
     try{
@@ -180,8 +180,8 @@ router.post("/Vregister", async (req, res) => {
 
             return res.send({status: "error", data: "token expired"});
         }
-        const useremail = user.email;
-        collection.findOne({email:useremail})
+        const useremail = user.Email;
+        vendor.findOne({Email:useremail})
         .then((data)=>{
             res.send({status: "ok", data: data});
         }).catch((error)=>{

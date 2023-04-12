@@ -1,0 +1,153 @@
+body {
+    background-color: #1d2749;
+    /* background-image: url('./yuriy-kovalev-nN1HSDtKdlw-unsplash.jpg'); */
+
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+
+h1 {
+    color: #f58220;
+    font-size: 2.5rem;
+    margin: 0 0 20px;
+    text-align: center;
+    margin-bottom: 10%;
+}
+
+
+
+        .container1 {
+   
+   background-color: #fff;
+   border-radius: 210px 10px 10px 210px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   margin-left:50%;
+   max-width: 45%;
+   margin-top: 90px;
+   padding: 90px;
+   position: relative;
+   overflow: hidden;
+   text-align: center;
+}
+
+div {
+    animation: mymove 3s;
+    }
+
+
+.container1:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.svgrepo.com/show/296032/registration.svg') no-repeat center center/cover;
+    border-radius: 0 10px 10px 0;
+    z-index: -1;
+}
+
+#div11 {animation-timing-function: ease;}
+@keyframes mymove {
+from {left: 500px;}
+to {left: 0px;}
+}
+
+input[type="email"],
+input[type="password"]
+ {
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #333;
+    font-size: 1.1rem;
+    margin: 10px;
+    padding: 10px;
+    width: 70%;
+    height: 10%;
+    text-align: center;
+    
+}
+input[type="submit"] {
+    background-color: #f58220;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin: 40px 0 0;
+    padding: 10px 20px;
+    transition: all 1s ease-in-out;
+    width:50%;
+
+    
+}
+
+.c11{
+    margin-top: 10%;
+    width: 150%;
+    margin-left: -20%;
+}
+.c21{
+    width: 150%;
+    margin-left: -20%;
+}
+
+input[type="checkbox"]{
+
+    width: 15px;
+    height: 15px;
+}
+
+
+
+label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    margin-left: 10px;
+    font-size:medium;
+}
+
+
+input[type="submit"]:hover {
+    background-color: #e36200;
+    transform: scale(1.05);
+}
+
+.form-message1 {
+    color: #f58220;
+    font-size: 0.8rem;
+    margin: 10px 0 0;
+    text-align:center;
+}
+
+.error {
+    color: red;
+    font-size: 0.8rem;
+    margin: 10px 0 0;
+    text-align: left;
+}
+
+.img1{
+    margin-top: -35%;
+    margin-left: 5%;
+}
+
+
+.txt1{
+    margin-top: -1%;
+    font-size:30px;
+    font-weight: bolder;
+    text-align: center;
+    margin-left: -65%;
+    color: #ffffff;
+}
+
+.c31{
+    margin-left: 6%;
+}
