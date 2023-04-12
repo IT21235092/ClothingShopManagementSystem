@@ -41,7 +41,6 @@ class VendorLogin extends Component {
         if(data.status =="ok"){
           alert("login successfull");
           window.localStorage.setItem("token", data.data);
-          window.localStorage.setItem("loggedIn", true);
           window.location.href="/Vuser";
         }
       });
