@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-export default class vendorLogin extends Component {
+class VendorLogin extends Component {
 
   
   
@@ -41,8 +41,7 @@ export default class vendorLogin extends Component {
         if(data.status =="ok"){
           alert("login successfull");
           window.localStorage.setItem("token", data.data);
-          window.localStorage.setItem("loggedIn", true);
-          window.location.href="./dash";
+          window.location.href="/Vuser";
         }
       });
   }
@@ -113,6 +112,9 @@ export default class vendorLogin extends Component {
                 <label className="form-check-label" htmlFor="exampleCheck1">
                   Remember me
                 </label>
+                <label className="form-check-label" htmlFor="exampleCheck1">
+                  <a href="/">   User</a>
+                </label>
               </div>
               <button
                 type="submit"
@@ -132,4 +134,7 @@ export default class vendorLogin extends Component {
 }
 
 
+
 }
+
+export default VendorLogin;
