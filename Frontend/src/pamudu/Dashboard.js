@@ -9,6 +9,8 @@ import Home from './Home';
 import UserProfile from './UserProfile';
 import Customer from '../inthi/Customer';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SideNavBar from './SideNavBar';
+
 
 export default class Dashboard extends Component {
   constructor(props){
@@ -21,7 +23,7 @@ export default class Dashboard extends Component {
       userSchema:[],
       posts:[],
       admin: false,
-      vendor: false,
+      employee: false,
       userType:"",
       count: null,
       error: null,
@@ -61,10 +63,10 @@ export default class Dashboard extends Component {
         console.log(data, "userData");
         if(data.data.userType == "Admin"){
           this.setState({ admin: true });
-          this.setState({ vendor: false });
+          this.setState({ employee: false });
           
-        }else  if(data.data.userType == "Vendor"){
-          this.setState({ vendor: true });
+        }else  if(data.data.userType == "Employee"){
+          this.setState({ employee: true });
           this.setState({ admin: false });
           
         }
@@ -177,69 +179,7 @@ export default class Dashboard extends Component {
   <div className="row">
 
   <NavBar/>
-    <nav
-      id="sidebarMenu"
-      className="col-md-3 col-lg-2 d-md-block sidebar-expand-lg" 
-    >
-      <div className="position-sticky pt-3">
-        <ul className="nav flex-column">
-
-        <li className="nav-item " id='dashw'>
-        <form class="form-inline" id='search'> 
-<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-</form>
-          </li>
-          
-          <li className="nav-item " id='dashw'>
-            <NavLink className="nav-link" aria-current="page" to="/emp" id='dashtxt'>
-          
-              Dashboard
-            </NavLink>
-          </li>
-          <li className="nav-item" id='dashw'>
-            <NavLink className="nav-link" to="/dash" id='dashtxt'>
-      
-              Employees
-            </NavLink>
-          </li>
-          <li className="nav-item" id='dashw'>
-            <NavLink className="nav-link" to="/Home" id='dashtxt'>
-             
-              Tasks
-            </NavLink>
-          </li>
-          <li className="nav-item" id='dashw'>
-            <NavLink className="nav-link" to="/sss" id='dashtxt'>
-             
-              Leaves
-            </NavLink>
-          </li>
-          <li className="nav-item" id='dashw'>
-            <NavLink className="nav-link" to="/ssss" id='dashtxt'>
-             
-              Attendance
-            </NavLink>
-          </li>
-          <li className="nav-item" id='dashw'>
-            <NavLink className="nav-link" to="/profile" id='dashtxt'>
-              
-              Reports
-            </NavLink>
-          </li>
-          <li className="nav-item" id='dashw'>
-            <NavLink className="nav-link" to="/ssss" id='dashtxt'>
-             
-             Feedback
-            </NavLink>
-          </li>
-        </ul>
-
-       
-       
-      </div>
-
-      
-    </nav>
+  <SideNavBar/>
       <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div className="chartjs-size-monitor">
         <div className="chartjs-size-monitor-expand">
@@ -415,7 +355,7 @@ export default class Dashboard extends Component {
         
          <Customer userData={this.state.userData} />
 
-      ) && this.state.vendor ?(
+      ) && this.state.employee ?(
         <UserProfile userData={this.state.userData}/> 
       ) : (
 

@@ -1,3 +1,7 @@
+body {
+  background: linear-gradient(rgba(119, 114, 112, 0.75), rgba(255, 255, 255, 0.85));
+}
+
 .card{
     transition: all 0.5s ease;
     
@@ -38,16 +42,21 @@
     padding: 30px;
     
 }
+#navfont{
+
+  color: rgb(255, 255, 255);
+}
 
 #navColour{
 
-    background-color: #FECD45;
+  background: linear-gradient(to bottom, #000000 0%, #000000 100%);
+  
    
 }
 #sidebarMenu{
 
-    background-color: #A350A3; 
-    border-radius: 0px 50px 50px 0px;
+    background: linear-gradient(to bottom, #000000 0%, #000000 100%); 
+    
     position:absolute;
     height: 1250px;
 }
@@ -63,6 +72,7 @@
     color: black;
     height: 50px; width: 183px;
     border-radius: 50px 0px 0px 50px;
+    
     
 }
 
@@ -80,6 +90,11 @@
 #card{
 
     max-width: 18rem;
+}
+
+.color-block-5 {
+  height: 200px;
+  width: 200px;
 }
 
 /* styles for screens smaller than 768px (mobile) */

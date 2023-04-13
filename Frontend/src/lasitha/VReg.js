@@ -2,50 +2,45 @@ import React, { useState, Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 
-export default class Register extends Component {
+export default class VReg extends Component {
 
  
   constructor(props) {
     super(props);
 
     this.state = {
-      user: "",
-      email: "",
+      OrganizationName: "",
+      Email: "",
       password: "",
       userType: "",
-      secretKey: "",
-     telephone: "",
-     address: "",
-     firstname: "",
-     lastname: "",
+      address: "",
+      phone_no: "",
+      icon: "",
+     secretKey:"",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
-    if(this.state.userType=="Admin" && this.state.secretKey != "PamuduX" || this.state.userType=="Employee" && this.state.secretKey != "PamuduX"){
-      e.preventDefault();
-      alert("Invalid Admin");
-    }else {
+ 
 
       e.preventDefault();
-    const { user, email, password,userType,telephone,address,firstname,lastname } = this.state;
-    console.log(user, email, password,userType,telephone,address,firstname,lastname );
-    fetch(`http://localhost:8000/register`, {
+    const { OrganizationName,Email,password,userType,address,phone_no,icon} = this.state;
+    console.log( OrganizationName,Email,password,userType,address,phone_no,icon   );
+    fetch(`http://localhost:8000/Vregister`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
       body: JSON.stringify({
-        user,
-        email,
+        OrganizationName,
+        Email,
         password,
         userType,
-        telephone,
         address,
-        firstname,
-        lastname,
+        phone_no,
+        icon
       }),
     })
       .then((res) => res.json())
@@ -55,7 +50,7 @@ export default class Register extends Component {
 
     }
    
-  }
+  
 
   render() {
     return (
@@ -70,72 +65,57 @@ export default class Register extends Component {
                 to="/"
                 className="btn btn-outline-light rounded-pill pb-2 w-50"
               >
-                Login
+                Vendor Login
               </NavLink>
             </div>
             <div className="col-md-6 p-5">
             <div className="mb-3">
                 <label htmlFor="name" className="form-label">
-                  First Name
+                Organization Name
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="firstname"
-                  name="firstname"
-                  onChange={(e) => this.setState({ firstname: e.target.value })}
+                  id="OrganizationName"
+                  name="OrganizationName"
+                  onChange={(e) => this.setState({ OrganizationName: e.target.value })}
                 />
               </div>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="lastname"
-                  name="lastname"
-                  onChange={(e) => this.setState({ lastname: e.target.value })}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="name" className="form-label">
-                  Username
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  name="username"
-                  onChange={(e) => this.setState({ user: e.target.value })}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  Email address
+                  Email
                 </label>
                 <input
                   type="email"
                   className="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  name="email"
-                  onChange={(e) => this.setState({ email: e.target.value })}
+                  id="Email"
+                  name="Email"
+                  onChange={(e) => this.setState({ Email: e.target.value })}
                 />
-                <div id="emailHelp" className="form-text">
-                  We'll never share your email with anyone else.
-                </div>
               </div>
               <div className="mb-3">
-                <label htmlFor="exampleInputPassword1" className="form-label">
-                  Password
+                <label htmlFor="name" className="form-label">
+                Password
                 </label>
                 <input
                   type="password"
                   className="form-control"
-                  id="exampleInputPassword1"
+                  id="password"
                   name="password"
                   onChange={(e) => this.setState({ password: e.target.value })}
+                />
+              </div>
+        
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
+                  Phone Num
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="phone_no"
+                  name="phone_no"
+                  onChange={(e) => this.setState({ phone_no: e.target.value })}
                 />
               </div>
               <div className="mb-3">
@@ -152,51 +132,16 @@ export default class Register extends Component {
               </div>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
-                  Tele-Phone Number
-                </label>
-                <input
-                  type="number"
-                  className="form-control"
-                  id="firstname"
-                  name="telephone"
-                  onChange={(e) => this.setState({ telephone: e.target.value })}
-                />
-              </div>
-              <div className="mb-3 ">
-                <input
-                  type="radio"
-                  name ="userType"
-                  value="User"
-                  onChange={(e) => this.setState({ userType: e.target.value })}
-                /> 
-                User <input
-                type="radio"
-                name ="userType"
-                value="Admin"
-                onChange={(e) => this.setState({ userType: e.target.value })}
-              /> Admin
-
-                <input
-                type="radio"
-                name ="userType"
-                value="Employee"
-                onChange={(e) => this.setState({ userType: e.target.value })}
-              /> Employee
-                
-              </div>
-
-              {this.state.userType =="Admin" || this.state.userType == "Employee"?(
-              <div className="mb-3">
-                <label  className="form-label">
-                  Secret Key
+                  Icon
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder='Secret Key'
-                  onChange={(e) => this.setState({ secretKey: e.target.value })}
+                  id="icon"
+                  name="icon"
+                  onChange={(e) => this.setState({ icon: e.target.value })}
                 />
-               </div>):null}
+              </div>
                
               <div className="mb-3 form-check">
                 <input
@@ -208,7 +153,7 @@ export default class Register extends Component {
                   I Agree Terms and Conditions
                 </label>
                 <label className="form-check-label" htmlFor="exampleCheck1">
-                  <a href="/Vregister">   Vendor</a>
+                  <a href="/register">   User</a>
                 </label>
               </div>
               <button

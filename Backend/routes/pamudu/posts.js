@@ -195,6 +195,7 @@ router.post("/",async(req,res) =>{
 
             return res.send({status: "error", data: "token expired"});
         }
+        
         const useremail = user.email;
         collection.findOne({email:useremail})
         .then((data)=>{
@@ -207,6 +208,8 @@ router.post("/",async(req,res) =>{
 
     }
   })
+
+  
 
 // Emp Details
 router.get('/accounts',(req,res) =>{
@@ -461,6 +464,7 @@ router.delete('/emp/delete/:id', (req,res)=>{
         });
     });
 });
+
 
 
 

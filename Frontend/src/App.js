@@ -21,9 +21,13 @@ import Customer from './inthi/Customer';
 import CusAdd from './inthi/CusAdd';
 import CusEdit from './inthi/CusEdit';
 import UserProfilePer from './pamudu/UserProfilePer';
-import VendorLogin from './lasitha/VendorLogin';
-import VendorRegister from  './lasitha/VendorRegister';
-import VUserProfile from './lasitha/VUserProfile';
+import VReg from './lasitha/VReg';
+import VLogin from './lasitha/VLogin';
+import VDashboard from './lasitha/VDashboard';
+
+
+
+
 
 
 function App() {
@@ -53,9 +57,10 @@ function App() {
           <Route path="/CusEdit/:id" element={<CusEdit/>} />
           <Route path="/CusAdd" element={<CusAdd/>} />
           <Route path="/userProfilePer/:id" element={<UserProfilePer/>} />
-          <Route path="/v" element={<VendorLogin/>} />
-          <Route path="/Vregister" element={<VendorRegister/>} />
-          <Route path="/Vuser" element={<VUserProfile/>} />
+          <Route path="/Vregister" element={<VReg />} />
+          <Route path="/v" element={<VLogin/>} />
+          <Route path="/vDash" element={<VDashboard/>} />
+         
        
 
 
